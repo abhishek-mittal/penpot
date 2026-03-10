@@ -5,6 +5,7 @@
 ### :boom: Breaking changes & Deprecations
 
 ### :rocket: Epics and highlights
+
 - Add MCP server integration [Taiga #13112](https://tree.taiga.io/project/penpot/us/13112)
 
 ### :sparkles: New features & Enhancements
@@ -15,10 +16,9 @@
 - Add woff2 support on user uploaded fonts (by @Nivl) [Github #8248](https://github.com/penpot/penpot/pull/8248)
 - Add copy as image to clipboard option to workspace context menu (by @dfelinto) [Github #8313](https://github.com/penpot/penpot/pull/8313)
 - Add Tab/Shift+Tab navigation to rename layers sequentially (by @bittoby) [Github #8474](https://github.com/penpot/penpot/pull/8474)
-
+- Copy token name from contextual menu [Taiga #13568](https://tree.taiga.io/project/penpot/issue/13568)
 
 ### :bug: Bugs fixed
-
 
 ## 2.15.0 (Unreleased)
 
@@ -35,11 +35,14 @@
 - Fix Alt/Option to draw shapes from center point (by @offreal) [Github #8361](https://github.com/penpot/penpot/pull/8361)
 - Add token name on broken token pill on sidebar [Taiga #13527](https://tree.taiga.io/project/penpot/issue/13527)
 - Fix collapsible sidebar property titles not toggling on click [Github #5168](https://github.com/penpot/penpot/issues/5168)
+<<<<<<< HEAD
 - Fix `penpot.openPage()` plugin API not navigating in the same tab; change default to same-tab navigation and allow passing a UUID string instead of a Page object [Github #8520](https://github.com/penpot/penpot/issues/8520)
 - Fix scroll on library modal [Taiga #13639](https://tree.taiga.io/project/penpot/issue/13639)
 - Update copy on penpot update message [Taiga #12924](https://tree.taiga.io/project/penpot/issue/12924)
 - Fix id prop on switch component [Taiga #13534](https://tree.taiga.io/project/penpot/issue/13534)
 - Fix tooltip shown on tab change [Taiga #13627](https://tree.taiga.io/project/penpot/issue/13627)
+=======
+>>>>>>> 4e86c4e61 (:sparkles: Copy token name from contextual menu)
 
 ## 2.14.0 (Unreleased)
 
