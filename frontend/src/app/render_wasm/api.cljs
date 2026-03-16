@@ -22,6 +22,7 @@
    [app.common.types.text :as txt]
    [app.common.uuid :as uuid]
    [app.config :as cf]
+   [app.main.data.workspace.texts-v3 :as texts]
    [app.main.refs :as refs]
    [app.main.render :as render]
    [app.main.store :as st]
@@ -51,6 +52,7 @@
    [cuerdas.core :as str]
    [promesa.core :as p]
    [rumext.v2 :as mf]))
+
 (def use-dpr? (contains? cf/flags :render-wasm-dpr))
 
 (def ^:const UUID-U8-SIZE 16)
@@ -91,6 +93,7 @@
 (def text-editor-pointer-down text-editor/text-editor-pointer-down)
 (def text-editor-pointer-move text-editor/text-editor-pointer-move)
 (def text-editor-pointer-up text-editor/text-editor-pointer-up)
+(def text-editor-get-current-styles text-editor/text-editor-get-current-styles)
 (def text-editor-has-focus? text-editor/text-editor-has-focus?)
 (def text-editor-has-selection? text-editor/text-editor-has-selection?)
 (def text-editor-select-all text-editor/text-editor-select-all)
@@ -161,7 +164,16 @@
           (text-editor/text-editor-render-overlay)
           ;; Poll for editor events; if any event occurs, trigger a re-render
           (let [ev (text-editor/text-editor-poll-event)]
+            (js/console.log "text-editor-event" ev)
             (when (and ev (not= ev 0))
+              ;; When SelectionChanged, get the current styles.
+              (case ev
+                2 (let [current-styles (text-editor/text-editor-get-current-styles)
+                        shape-id (text-editor/text-editor-get-active-shape-id)]
+
+                    (js/console.log "current-styles" shape-id (clj->js current-styles))
+                    (st/emit! (texts/v3-update-text-editor-styles shape-id current-styles))))
+
               (request-render "text-editor-event")))))
       (catch :default e
         (js/console.error "text-editor overlay/update failed:" e)))

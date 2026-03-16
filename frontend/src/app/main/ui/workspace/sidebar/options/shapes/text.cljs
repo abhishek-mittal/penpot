@@ -85,9 +85,21 @@
         (mf/deref parents-by-ids-ref)
 
         state-map
-        (if (features/active-feature? @st/state "text-editor/v2")
+        (cond
+          (features/active-feature? @st/state "text-editor-wasm/v1")
+          (mf/deref refs/workspace-wasm-editor-styles)
+
+          (features/active-feature? @st/state "text-editor/v2")
           (mf/deref refs/workspace-v2-editor-state)
+
+          :else
           (mf/deref refs/workspace-editor-state))
+
+        editor-styles
+        (when (features/active-feature? @st/state "text-editor-wasm/v1")
+          (get state-map id))
+
+        _ (js/console.log "editor-styles" editor-styles)
 
         editor-state
         (when (not (features/active-feature? @st/state "text-editor/v2"))
@@ -99,7 +111,8 @@
 
         fill-values
         (dwt/current-text-values
-         {:editor-state editor-state
+         {:editor-styles editor-styles
+          :editor-state editor-state
           :editor-instance editor-instance
           :shape shape
           :attrs (conj txt/text-fill-attrs :fills)})
@@ -112,12 +125,14 @@
           {:shape shape
            :attrs txt/root-attrs})
          (dwt/current-paragraph-values
-          {:editor-state editor-state
+          {:editor-styles editor-styles
+           :editor-state editor-state
            :editor-instance editor-instance
            :shape shape
            :attrs txt/paragraph-attrs})
          (dwt/current-text-values
-          {:editor-state editor-state
+          {:editor-styles editor-styles
+           :editor-state editor-state
            :editor-instance editor-instance
            :shape shape
            :attrs txt/text-node-attrs}))]

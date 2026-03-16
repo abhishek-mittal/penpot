@@ -3,9 +3,10 @@ use std::fmt;
 use crate::uuid::Uuid;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
+#[repr(u8)]
 pub enum FontStyle {
-    Normal,
-    Italic,
+    Normal = 0,
+    Italic = 1,
 }
 
 impl fmt::Display for FontStyle {
@@ -33,6 +34,8 @@ impl FontFamily {
     pub fn alias(&self) -> String {
         format!("{}", self)
     }
+
+    pub fn id(&self) -> Uuid { self.id }
 }
 
 impl fmt::Display for FontFamily {
